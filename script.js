@@ -305,5 +305,5 @@ function loadFromStorage() {
     } catch (e) {
         recordings = [];
     }
-}
-    
+    }
+        
