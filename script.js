@@ -59,10 +59,14 @@ async function startRecording() {
             modalInput.select();
         };
 
-        mediaRecorder.start();
+        // CORREÇÃO AQUI: Passamos 1000ms para garantir que os dados de áudio sejam processados corretamente
+        mediaRecorder.start(1000); 
         isRecording = true;
         recordBtn.classList.add('recording');
-        recordBtn.querySelector('.mic-icon').textContent = '⏹️';
+        
+        // CORREÇÃO AQUI: Prevenção de erro caso a classe do ícone varie
+        const iconSpan = recordBtn.querySelector('.mic-icon') || recordBtn.querySelector('.icon');
+        if (iconSpan) iconSpan.textContent = '⏹️';
 
     } catch (err) {
         alert('Permissão para acessar o microfone negada ou navegador sem suporte.');
@@ -75,7 +79,10 @@ function stopRecording() {
         mediaRecorder.stop();
         isRecording = false;
         recordBtn.classList.remove('recording');
-        recordBtn.querySelector('.mic-icon').textContent = '🎤';
+        
+        // CORREÇÃO AQUI: Prevenção de erro caso a classe do ícone varie
+        const iconSpan = recordBtn.querySelector('.mic-icon') || recordBtn.querySelector('.icon');
+        if (iconSpan) iconSpan.textContent = '🎤';
     }
 }
 
@@ -190,9 +197,9 @@ function renderList() {
     if (recordings.length === 0) {
         listEl.innerHTML = `
             <div class="empty-state">
-                <span>🎧</span>
+                <span style="font-size: 48px; display: block; margin-bottom: 12px;">🎧</span>
                 Nenhuma gravação ainda.<br>
-                Toque no botão vermelho para começar.
+                Toque no botão para começar.
             </div>
         `;
         return;
@@ -215,8 +222,8 @@ function renderList() {
     let html = '';
     for (const key in groups) {
         const group = groups[key];
-        html += `<div class="month-group">`;
-        html += `<div class="month-title">${group.label}</div>`;
+        html += `<div class="month-group" style="margin-top: 20px;">`;
+        html += `<div class="month-title" style="font-size: 14px; font-weight: 600; color: #8e8e93; text-transform: uppercase; padding: 6px 0 8px 0; border-bottom: 1px solid #e5e5ea; margin-bottom: 12px;">${group.label}</div>`;
 
         group.items.forEach(rec => {
             const d = new Date(rec.date);
@@ -227,7 +234,7 @@ function renderList() {
 
             html += `
                 <div class="recording-item" data-id="${rec.id}">
-                    <div class="item-info" onclick="renameRecording('${rec.id}')" title="Clique para renomear">
+                    <div class="item-info" onclick="renameRecording('${rec.id}')" title="Clique para renomear" style="cursor: pointer;">
                         <div class="item-name">${escHtml(rec.name)}</div>
                         <div class="item-meta">${durStr} - ${dateStr}</div>
                     </div>
@@ -298,4 +305,5 @@ function loadFromStorage() {
     } catch (e) {
         recordings = [];
     }
-          }
+}
+    
