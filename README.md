@@ -29,7 +29,5 @@ A interface foi inspirada no aplicativo de gravações do sistema, com:
 
 ## 🚀 Como usar
 
-1. Clone este repositório:
-   ```bash
-   git clone https://github.com/seu-usuario/gravador-audio.git
+1. Acesse a URL abaixo : https://detiillimichel-max.github.io/audio-grava-o/
    Feito com carinho com ajuda do Deep 
