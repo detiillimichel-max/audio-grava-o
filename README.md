@@ -32,4 +32,4 @@ A interface foi inspirada no aplicativo de gravações do sistema, com:
 1. Clone este repositório:
    ```bash
    git clone https://github.com/seu-usuario/gravador-audio.git
-   Feito com carinho com a sjuda do Deep 
+   Feito com carinho com ajuda do Deep 
